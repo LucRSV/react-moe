@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-76195887-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!-- viewport -->
+<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+<!-- favicon -->
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+<!-- fonts -->
+<link href='https://fonts.googleapis.com/css?family=Karla:400,700' rel='stylesheet' type='text/css' />
+<link href='https://fonts.googleapis.com/css?family=Rokkitt:400,700' rel='stylesheet' type='text/css' />
+
+<!-- stylesheet -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
+
+<!-- title will be added per page from image info -->
+<title>{% block title %}{% endblock %}</title>
+{% block head %}{% endblock %}
+</head>
+
+<body>
+<!-- nav -->
+<div class="nav">
+	<ul class="nav-links">
+		<li class="nav-link home"><a href="{{ url_for('main') }}">React.moe</a>
+		</li><li class="nav-link" id="add"><a href="{{ url_for('addImg') }}">Submit an Image</a>
+		</li><li class="nav-link" id="about"><a href="{{ url_for('about') }}">About React.moe</a>
+		</li>
+	</ul>
+</div>
+
+<!-- body content to be extended -->
+<div class="content">
+{% block content %}{% endblock %}
+</div>
+<script type="text/javascript">
+var mq = window.matchMedia("(max-width: 719px)");
+if (mq.matches){
+	var add = document.querySelector("#add>a");
+	var about = document.querySelector("#about>a");
+	about.innerHTML = "about";
+	add.innerHTML = "submit";
+}
+</script>
+</body>
+</html>

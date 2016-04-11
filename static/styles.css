@@ -1,0 +1,89 @@
+/* some CSS fixes */
+head {
+	display: none;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Karla';
+}
+h1, h2, h3, h4{
+	font-family: 'Rokkitt';
+}
+
+/* navbar styling */
+.nav {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+	background: #000;
+	height: 50px;
+}
+
+.nav-links {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+.nav-links li{
+	display: inline-block;
+	text-decoration: none;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	border-right: 1px solid #fff;
+}
+
+.nav-links li a{
+	margin: 0;
+	padding: 15px 10px;
+	/*height: 100%;*/
+	display: block;
+	text-decoration: none;
+	color: #fff;
+	font-weight: 300;
+	text-transform: uppercase;
+}
+
+.nav-links li:hover{
+	background-color: #4c4c4c;
+}
+
+.home *{
+	font-weight: 600 !important;
+}
+
+/* page styling */
+
+.content{
+	width: 80%;
+	margin: 0 auto;
+}
+
+/* mobile styling */
+@media (max-width: 719px) and (min-width: 100px){
+	.nav-links li {
+		width: 33%;
+		display: block;
+		float: left;
+	}
+
+	.nav-links li a{
+		text-align: center;
+	}
+
+	.nav-links li:last-child {
+		border-right: none;
+	}
+
+	.nav-links {
+		width: 100%;
+	}
+
+	.nav {
+		height: 50px;
+	}
+}

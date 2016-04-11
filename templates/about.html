@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}About React.moe{% endblock %}
+{% block head %}<meta name="description" content="React.moe is a simple reaction image serving webapp that does the work of choosing an image for you.">{% endblock %}
+{% block content %}
+<div class="content-inner">
+{% filter markdown %}
+#What is React.moe?
+<hr align="left" width="600px"/>
+React.moe is a simple webapp designed to handle a very difficult problem:
+
+*not knowing what reaction image to use.*
+
+We've all been there. You're talking to your friend online and they say something dumb. You want to express your extreme disbelief, but don't know which of your many reaction images to use. Worry not, brave internet user, React.moe is here to help.
+
+##How does it help me?
+
+Let's use the previous example. You want a good "wat" reaction, but don't know what to use. If you simply link React.moe/wat, we will do all the work for you - picking an appropriately tagged "wat" image and serving it up on a nicely formatted webpage.
+
+##Can I add my own images?
+
+Feel free! The more the merrier, as they say. However, please keep a couple things in mind:
+
+- While React.moe is largely unmoderated, offensive, illegal, or identifying images (images containing addresses, phone numbers, or other identifying information about a person) will be removed when they are found. Please observe US and Local law when submitting an image to React.moe.
+
+- When submitting an image, please do your best to add as many appropriate tags as possible. This help diversify the available images for a given tag. However, while there is no tag limit, please refrain from adding unrelated or redundant tags.
+
+- Please refrain from abusing the "report image" feature. This feature is designed to aid me in the removal of rule-offending images or those which may be subject to copyright infringement.
+{% endfilter %}
+<style type="text/css">
+  @media (max-width: 719px){
+    hr {
+      width: 100%;
+    }
+  }
+</style>
+</div>
+{% endblock %}
