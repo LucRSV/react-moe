@@ -3,7 +3,17 @@
 {% block head %}<meta name="description" content="Submit an image to React.moe" >{% endblock %}
 {% block content %}
 {% filter markdown %}
-#We are currently not accepting submissions. Stay tuned for launch!
+#To upload an image, please paste a direct URL that links to a valid image.
+
+###Helpful Hints:
+
+- To get a direct URL for an image, right click the image in question and choose "copy image URL" (you can practice this with images on our site!)
+
+- Accepted filetypes are: **JPG/JPEG, PNG, GIF, <!--[WebP](https://developers.google.com/speed/webp/), -->and SVG**
 {% endfilter %}
+
+<form id="submit-image">
+
+</form>
 
 {% endblock %}

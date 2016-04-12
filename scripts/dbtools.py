@@ -15,7 +15,7 @@ def rString():
 			id_string += str(random.randint(0, 9))
 
 
-def insertImage(title, tags, filters, url, uploader):
+def submit(title, tags, filters, url, uploader):
 	strikes = 0
 	if("nsfw" in filters):
 		nsfw = True
@@ -26,5 +26,5 @@ def insertImage(title, tags, filters, url, uploader):
 		animated = True
 	else:
 		animated = False
-	
-	db.images.insert({"title":title, "tags":tags, "nsfw":nsfw, "animated":animated, "url":url, "uploader":uploader)
+
+	db.images.insert({"title":title, "tags":tags, "nsfw":nsfw, "animated":animated, "url":url, "uploader":uploader})

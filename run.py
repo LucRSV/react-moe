@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 from flaskext.markdown import Markdown
+from scripts.dbtools import submit
 
 application = Flask(__name__)
 
@@ -9,9 +10,12 @@ Markdown(application)
 def main():
 	return render_template('main.html')
 
-@application.route("/add_image")
+@application.route("/add_image", methods=["POST", "GET"])
 def addImg():
-	return render_template('addimg.html')
+	if request.route == "GET":
+		return render_template('addimg.html')
+	elif request.route == "POST":
+		return render_template('addimg.html')
 
 @application.route("/about")
 def about():
