@@ -3,7 +3,7 @@ from flask_wtf import Form
 from wtforms import TextField, BooleanField, SubmitField
 from wtforms.validators import InputRequired
 from flaskext.markdown import Markdown
-from static.scripts.dbtools import submitImg, getImg, getImgR, getTopTags
+from static.scripts.dbtools import submitImg, getImg, getImgR, getTopTags, db
 from flask_recaptcha import ReCaptcha
 import random
 
@@ -34,6 +34,8 @@ def main():
 	tags = {}
 	for tag in tags_raw:
 		#make sure the tag isn't serving only animated/nsfw images
+		if len(tags) > 8:
+			break
 		try:
 			tags[tag] = {"tag":tag, "img":getImgR(tag, False, False)["url"]}
 		except:
@@ -77,7 +79,9 @@ def addImg():
 
 @application.route("/about")
 def about():
-	return render_template('about.html')
+	images = db.images.find().count()
+	tags = db.tags.find().count()
+	return render_template('about.html', tags=tags, images=images)
 
 @application.route("/img/<imgId>")
 #catchall /img/imgId route (ie: react.moe/img/1H9jlKz1)

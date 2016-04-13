@@ -64,7 +64,6 @@ def submitImg(title, tags, filters, url, uploader):
 	imgId = gen_ID()
 
 	if validUrl == True:
-		db.images.insert({"title":title, "tags":tags, "nsfw":nsfw, "animated":animated, "url":url, "uploader":uploader, "imgId":imgId})
 		for tag in range(len(tags)):
 			db.tags.update({"tag":tags[tag]}, {'$inc': {"count": int(1)}}, upsert=True)
 		return(imgId)
@@ -114,7 +113,7 @@ def getImgR(tag, nsfw=False, animated=True):
 
 def getTopTags():
 	tags = []
-	top = db.tags.find().sort("count", -1).limit(9)
+	top = db.tags.find().sort("count", -1).limit(15)
 	for tag in top:
 		tags.append(tag["tag"])
 	return tags
