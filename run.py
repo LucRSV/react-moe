@@ -91,6 +91,16 @@ def img(imgId):
 @application.route("/<tag>")
 #catchall for tag. Will add filter parsing later. (IE: react.moe/funny&animate=True)
 def rimg(tag):
+	animated = True
+	nsfw = False
+	if len(tag.split("&")) > 1:
+		filters = tag.lower().split("&")
+		tag = tag.lower().split("&")[0]
+		if "animated=false" in filters:
+			animated = False
+		if "nsfw=true" in filters:
+			nsfw = True
+
 	if "%20" in tag:
 		newTag = tag.split("%20")
 		tag = " ".join(newTag).lower()
@@ -99,7 +109,7 @@ def rimg(tag):
 		newTag = tag.split("_")
 		tag = " ".join(newTag).lower()
 
-	img = getImgR(tag, False, True)
+	img = getImgR(tag, nsfw, animated)
 	if img == "No image found for tag %s" % (tag):
 		return render_template('img.html', err=img)
 	else:
