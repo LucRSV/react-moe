@@ -2,6 +2,12 @@
 {% block title %}Submit An Image{% endblock %}
 {% block head %}<meta name="description" content="Submit an image to React.moe" >{% endblock %}
 {% block content %}
+{% if err %}
+  <h2 class="err">{{ err }}</h2>
+{% endif %}
+{% if msg %}
+  <h2 class="msg">{{ msg }}</h2>
+{% endif %}
 {% filter markdown %}
 #To upload an image, please paste a direct URL that links to a valid image.
 
@@ -11,9 +17,30 @@
 
 - Accepted filetypes are: **JPG/JPEG, PNG, GIF, <!--[WebP](https://developers.google.com/speed/webp/), -->and SVG**
 {% endfilter %}
+<form class="addImg" action="{{ url_for('addImg') }}" method=post>
+{{ form.hidden_tag() }}
 
-<form id="submit-image">
+{{ form.title.label }}
+{{ form.title }}
 
+{{ form.url.label }}
+{{ form.url }}
+
+{{ form.tags.label }}
+{{ form.tags }}
+
+{{ form.nsfw.label }}
+{{ form.nsfw }}
+
+{{ form.submit }}
 </form>
-
+<script>
+$(document).ready(function(){
+  $('input').icheck({
+    checkboxClass: 'icheckbox_minimal',
+    radioClass: 'iradio_minimal',
+    increaseArea: '20%' // optional
+  });
+});
+</script>
 {% endblock %}

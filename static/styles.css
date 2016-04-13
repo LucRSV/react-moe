@@ -63,6 +63,73 @@ h1, h2, h3, h4{
 	margin: 0 auto;
 }
 
+.err{
+	text-align: center;
+	color: #C70A0A;
+}
+
+.msg{
+	text-align: center;
+	color: #46A241;
+}
+
+#image{
+	margin: 40px auto;
+	max-width: 100%;
+	border: 5px solid #000;
+	display: block;
+}
+
+.title {
+	text-align: center;
+}
+
+.tags {
+	text-align: center;
+}
+
+.noimage{
+	font-size: 48px;
+	text-align: center;
+}
+
+/* submit image styling */
+
+.addImg input{
+	display: block;
+	margin-bottom: 20px;
+}
+
+.addImg label{
+	font-family: 'Rokkitt';
+	font-weight: 500;
+	font-size: 24px;
+	margin-top: 15px;
+}
+
+.addImg input[type=text]{
+	border: 2px solid #000;
+	width: 300px;
+	font-size: 18px;
+}
+
+.addImg input[type=submit]{
+	background: #fff;
+	background-color: #fff;
+	border: 2px solid #000;
+	font-family: 'Rokkitt';
+	font-size: 24px;
+	margin-top: 20px;
+	-webkit-transition: 0.3s;
+	-moz-transition: 0.3s;
+	-ms-transition: 0.3s;
+	transition: 0.3s;
+}
+
+.addImg input[type=submit]:hover{
+	background-color: #c4c4c4;
+}
+
 /* mobile styling */
 @media (max-width: 719px) and (min-width: 100px){
 	.nav-links li {
@@ -85,5 +152,13 @@ h1, h2, h3, h4{
 
 	.nav {
 		height: 50px;
+	}
+
+	.addImg input[type=text]{
+		width: 100%;
+	}
+
+	.addImg input[type=submit]{
+		width: 100%;
 	}
 }
