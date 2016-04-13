@@ -7,6 +7,7 @@ from static.scripts.dbtools import submitImg, getImg, getImgR, getTopTags
 from flask_recaptcha import ReCaptcha
 import random
 
+#Flask configs
 application = Flask(__name__)
 application.debug = True
 application.secret_key = "1121Shoutai"
@@ -15,8 +16,10 @@ application.config["RECAPTCHA_SECRET_KEY"] = "6LfLVh0TAAAAAGlTCKgi_WeuU1D-IOxOnk
 recaptcha = ReCaptcha()
 recaptcha.init_app(application)
 
+#Setup Markdown
 Markdown(application)
 
+#Submit Image form
 class submitForm(Form):
 	title = TextField(u'Title')
 	url = TextField(u'Image URL', [InputRequired("You must enter an image URL")])
@@ -26,12 +29,15 @@ class submitForm(Form):
 
 @application.route("/")
 def main():
+#getting our top used tags
 	tags_raw = getTopTags()
 	tags = {}
 	for tag in tags_raw:
+		#make sure the tag isn't serving only animated/nsfw images
 		try:
 			tags[tag] = {"tag":tag, "img":getImgR(tag, False, False)["url"]}
 		except:
+		#skip if animated or NSFW
 			pass
 	return render_template('main.html', tags=tags)
 
@@ -74,6 +80,7 @@ def about():
 	return render_template('about.html')
 
 @application.route("/img/<imgId>")
+#catchall /img/imgId route (ie: react.moe/img/1H9jlKz1)
 def img(imgId):
 	img = getImg(imgId)
 	try:
@@ -82,6 +89,7 @@ def img(imgId):
 		return render_template('img.html', err="Image not found. It may have been removed, or there was a server error.")
 
 @application.route("/<tag>")
+#catchall for tag. Will add filter parsing later. (IE: react.moe/funny&animate=True)
 def rimg(tag):
 	if "%20" in tag:
 		newTag = tag.split("%20")
