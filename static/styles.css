@@ -130,6 +130,68 @@ h1, h2, h3, h4{
 	background-color: #c4c4c4;
 }
 
+.img-container {
+	margin: 15px;
+	width: 30%;
+	overflow: hidden;
+	display: inline-block;
+	border: 5px solid #000;
+}
+
+.img-container .buffer {
+	width: 100%;
+	padding-top: 100%;
+	position: relative;
+}
+
+.img-container .buffer .inner img {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+#taglink {
+	position: absolute;
+	margin-top: -50%;
+	margin-left: 10%;
+	width: 80%;
+	height: 10%;
+	background: #fff;
+	background-color: #fff;
+	border: 3px solid #000;
+	overflow: hidden;
+}
+
+#taglink a {
+	display: block;
+	height: 100%;
+	width: 100%;
+	text-decoration: none;
+	font-size: 200%;
+	font-family: "Rokkitt";
+	color: #000;
+	text-align: center;
+	padding-top: 5px;
+
+	transition: 0.3s;
+	-webkit-transition: 0.3s;
+	-moz-transition: 0.3s;
+	-ms-transition: 0.3s;
+	-o-transition: 0.3s;
+}
+
+#taglink a:hover {
+	background: #c4c4c4;
+	background-color: #c4c4c4;
+}
+
+.g-recaptcha {
+	margin-top: 15px;
+}
+
 /* mobile styling */
 @media (max-width: 719px) and (min-width: 100px){
 	.nav-links li {
@@ -161,4 +223,16 @@ h1, h2, h3, h4{
 	.addImg input[type=submit]{
 		width: 100%;
 	}
+}
+
+@media (max-width: 1023px) and (min-width: 100px){
+		.img-container {
+			width: 90%;
+			display: block;
+			margin-top: 10px;
+		}
+
+		#taglink a {
+			padding-top: 0px;
+		}
 }

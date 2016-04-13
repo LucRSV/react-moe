@@ -4,11 +4,16 @@ from wtforms import TextField, BooleanField, SubmitField
 from wtforms.validators import InputRequired
 from flaskext.markdown import Markdown
 from static.scripts.dbtools import submitImg, getImg, getImgR, getTopTags
+from flask_recaptcha import ReCaptcha
 import random
 
 application = Flask(__name__)
 application.debug = True
 application.secret_key = "1121Shoutai"
+application.config["RECAPTCHA_SITE_KEY"] = "6LfLVh0TAAAAAA5p4hjpcPcPoAZDtcP3SqG7d7Hv"
+application.config["RECAPTCHA_SECRET_KEY"] = "6LfLVh0TAAAAAGlTCKgi_WeuU1D-IOxOnkGO0gGA"
+recaptcha = ReCaptcha()
+recaptcha.init_app(application)
 
 Markdown(application)
 
@@ -23,10 +28,10 @@ class submitForm(Form):
 def main():
 	tags_raw = getTopTags()
 	tags = {}
-	for t in range(len(tags_raw)):
-		tags[tags_raw[t]] = {"tag":tags_raw[t], "img":getImgR(tags_raw[t])["url"]}
+	for tag in tags_raw:
+		tags[tag] = {"tag":tag, "img":getImgR(tag)["url"]}
 
-	return render_template('main.html', tags=tag)
+	return render_template('main.html', tags=tags)
 
 @application.route("/add_image", methods=["POST", "GET"])
 def addImg():
@@ -35,29 +40,32 @@ def addImg():
 		return render_template('addimg.html', form=form)
 	elif request.method == "POST":
 		# Adding in image filters for NSFW and animated Gifs
-		if form.validate():
-			filters = []
-			if form.nsfw.data == True:
-				filters.append("nsfw")
-			if ".gif" in form.url.data:
-				filters.append("animated")
+		if recaptcha.verify():
+			if form.validate():
+				filters = []
+				if form.nsfw.data == True:
+					filters.append("nsfw")
+				if ".gif" in form.url.data:
+					filters.append("animated")
 
-			tags = form.tags.data.split(",")
-			for i in range(len(tags)):
-				tags[i] = tags[i].lower()
-				if tags[i][0] == " ":
-					tags[i] = tags[i][1:]
+				tags = form.tags.data.split(",")
+				for i in range(len(tags)):
+					tags[i] = tags[i].lower()
+					if tags[i][0] == " ":
+						tags[i] = tags[i][1:]
 
-			uploader = []
-			uploader.append(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
-			errCheck = submitImg(form.title.data, tags, filters, form.url.data, uploader)
-			if errCheck == 'invalid URL supplied':
-				err = errCheck
-				return render_template('addimg.html', form=form, err=err)
+				uploader = []
+				uploader.append(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+				errCheck = submitImg(form.title.data, tags, filters, form.url.data, uploader)
+				if errCheck == 'invalid URL supplied':
+					err = errCheck
+					return render_template('addimg.html', form=form, err="Invalid URL supplied or Image has already been submitted.")
+				else:
+					return redirect(url_for('img', imgId=errCheck))
 			else:
-				return redirect(url_for('img', imgId=errCheck))
+				return render_template('addimg.html', form=form, err="An error occured when submitting your image. Please check all fields.")
 		else:
-			return render_template('addimg.html', form=form, err="An error occured when submitting your image. Please check all fields.")
+			return render_template('addimg.html', form=form, err="Please confirm you're human with the ReCaptcha box.")
 
 @application.route("/about")
 def about():

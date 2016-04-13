@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}React.moe{% endblock %}
 {% block content %}
-<h1> Hello, World!</h1>
+{% for tag in tags %}
+<div class="img-container">
+  <div class="buffer">
+    <div class="inner"><img src="{{ tags[tag]['img'] }}" id="home-img"/>
+    <div id="taglink"><a href="{{ url_for('rimg', tag=tags[tag]['tag']) }}">{{ tags[tag]['tag'] }}</a></div></div>
+  </div>
+</div>
+{% endfor %}
 {% endblock %}
