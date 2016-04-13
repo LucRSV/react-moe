@@ -64,6 +64,7 @@ def submitImg(title, tags, filters, url, uploader):
 	imgId = gen_ID()
 
 	if validUrl == True:
+		db.images.insert({"title":title, "tags":tags, "nsfw":nsfw, "animated":animated, "url":url, "uploader":uploader, "imgId":imgId})
 		for tag in range(len(tags)):
 			db.tags.update({"tag":tags[tag]}, {'$inc': {"count": int(1)}}, upsert=True)
 		return(imgId)
