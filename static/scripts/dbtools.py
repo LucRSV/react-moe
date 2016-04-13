@@ -38,7 +38,7 @@ def validateUrl(url):
 	q = db.images.find({"url":url}).count()
 	if q > 0:
 		return False
-		
+
 	if r_url.match(url):
 		if r_image.match(url):
 			return True
@@ -81,16 +81,34 @@ def getImg(imgId):
 		fields["title"] = i["title"]
 	return fields
 
-def getImgR(tag, nsfw=False):
-	qCount = db.images.find({'tags':tag}).count()
+def getImgR(tag, nsfw=False, animated=True):
+	search_fields = {}
+
+	search_fields["tags"] = tag
+	if nsfw == True:
+		search_fields["nsfw"] = True
+	elif nsfw == False:
+		search_fields["nsfw"] = False
+
+	if animated == False:
+		search_fields["animated"] = False
+
+	qCount = db.images.find(search_fields).count()
+
 	try:
-		rImg = db.images.find({'tags':tag, "nsfw":nsfw})[random.randint(0, qCount-1)]
+		if animated == True:
+			rImg = db.images.find({'tags':tag, "nsfw":nsfw})[random.randint(0, qCount-1)]
+
+		elif animated == False:
+			rImg = db.images.find({'tags':tag, "nsfw":nsfw, "animated":animated})[random.randint(0, qCount-1)]
+
 		fields = {}
 		fields["url"] = rImg["url"]
 		fields["tags"] = rImg["tags"]
 		fields["title"] = rImg["title"]
 		fields["imgId"] = rImg["imgId"]
 		return fields
+
 	except:
 		return "No image found for tag %s" % (tag)
 

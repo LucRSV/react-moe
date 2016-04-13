@@ -11,6 +11,8 @@
 {% endif %}
 {% if img %}
 <img id="image" src="{{ img }}" />
+<p class="source"><b>Source:&nbsp;</b><a href="{{ img }}">{{ img }}</a></p>
+<p class="d-url"><b>React URL:&nbsp;</b><a href="http://react.moe/img/{{ imgId }}">http://react.moe/img/{{ imgId }}</a></p>
 <p class="tags"><b>Tags:&nbsp;</b>{% for tag in tags %}{{ tag }}{% if not loop.last %},&nbsp;{% endif %}{% endfor %}</p>
 {% endif %}
 {% if err %}

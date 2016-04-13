@@ -29,8 +29,10 @@ def main():
 	tags_raw = getTopTags()
 	tags = {}
 	for tag in tags_raw:
-		tags[tag] = {"tag":tag, "img":getImgR(tag)["url"]}
-
+		try:
+			tags[tag] = {"tag":tag, "img":getImgR(tag, False, False)["url"]}
+		except:
+			pass
 	return render_template('main.html', tags=tags)
 
 @application.route("/add_image", methods=["POST", "GET"])
@@ -89,7 +91,7 @@ def rimg(tag):
 		newTag = tag.split("_")
 		tag = " ".join(newTag).lower()
 
-	img = getImgR(tag)
+	img = getImgR(tag, False, True)
 	if img == "No image found for tag %s" % (tag):
 		return render_template('img.html', err=img)
 	else:
