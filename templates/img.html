@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block head %}
 <meta property="og:title" content="{{ title }}" />
-<meta property="og:type" content="image"/>
+<meta property="og:type" content="website"/>
 <meta property="og:image" content="{{ img }}" />
 <meta property="og:url" content="http://react.moe/img/{{ imgId }}" />
+<meta property="og:description" content="{% for tag in tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}" />
+<link rel="image_src" href="{{ img }}" />
+<meta name="description" content="{% for tag in tags %}{{ tag }}{% if not loop.last %}, {% endif %}{% endfor %}" />
 {% endblock %}
 {% block content %}
 {% if title %}

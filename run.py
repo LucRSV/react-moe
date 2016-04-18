@@ -92,8 +92,14 @@ def img(imgId):
 	except:
 		return render_template('img.html', err="Image not found. It may have been removed, or there was a server error.")
 
+@application.route("/remove/<imgId>", methods=["POST", "GET"])
+def removeImg(imgId):
+	q = db.images.find_one({"imgId":imgId})
+	db.claims.insert({"title":q["title"], "imgId":q["imgId"], "uploader":q["uploader"]})
+	return render_template("thankyou.html", imgId=imgId)
+
 @application.route("/<tag>")
-#catchall for tag. Will add filter parsing later. (IE: react.moe/funny&animate=True)
+#catchall for tag. Will add filter parsing later. (IE: react.moe/funny&animated=True)
 def rimg(tag):
 	animated = True
 	nsfw = False
